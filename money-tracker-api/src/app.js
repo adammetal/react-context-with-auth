@@ -7,7 +7,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-app.get("/ping", (req, res) => {
+app.get("/api/ping", (req, res) => {
   res.json(process.memoryUsage());
 });
 
