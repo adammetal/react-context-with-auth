@@ -1,30 +1,36 @@
-const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const { Schema, model } = require("mongoose");
 
-const users = [];
+const UserSchema = new Schema({
+  email: String,
+  password: String,
+  track: [
+    {
+      date: { type: Date, default: Date.now },
+      amount: Number,
+      rating: Number,
+    },
+  ],
+});
 
-const genId = () => crypto.randomBytes(32).toString("hex");
+const userModel = model("User", UserSchema);
 
 const hash = (pw) => bcrypt.hash(pw, 10);
 
 const comparePasswords = (user, pw) => bcrypt.compare(pw, user.password);
 
-const getUserByEmail = (email) =>
-  Promise.resolve(users.find((user) => user.email === email));
+const getUserByEmail = (email) => userModel.findOne({ email }).exec();
 
-const createUser = (email, password) => {
-  const id = genId();
+const createUser = async (email, password) => {
+  const hashed = await hash(password);
 
-  return hash(password).then((password) => {
-    const user = {
-      password,
-      email,
-      id,
-    };
+  const user = {
+    password: hashed,
+    track: [],
+    email,
+  };
 
-    users.push(user);
-    return user;
-  });
+  return userModel.create(user);
 };
 
 module.exports = {

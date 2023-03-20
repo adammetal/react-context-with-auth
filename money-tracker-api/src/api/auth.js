@@ -43,7 +43,7 @@ router.post("/sign-in", async (req, res) => {
     return res.json({ token: false });
   }
 
-  const token = await jwt.sign(user, SECRET);
+  const token = await jwt.sign(user.toObject(), SECRET);
   return res.json({ token });
 });
 
