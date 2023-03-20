@@ -1,0 +1,15 @@
+.button {
+  outline: none;
+  border-radius: 0;
+  box-shadow: 5px 0 10 #8c8c8cb4;
+  padding: .5rem;
+  cursor: pointer;
+}
+
+.button.light {
+  border: 1px solid black;
+}
+
+.button.dark {
+  border: 1px solid whitesmoke;
+}
