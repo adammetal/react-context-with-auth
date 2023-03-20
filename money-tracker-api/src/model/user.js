@@ -5,7 +5,7 @@ const users = [];
 
 const genId = () => crypto.randomBytes(32).toString("hex");
 
-const hash = (pw) => bcrypt.hash(pw, 64);
+const hash = (pw) => bcrypt.hash(pw, 10);
 
 const comparePasswords = (user, pw) => bcrypt.compare(pw, user.password);
 
@@ -15,14 +15,16 @@ const getUserByEmail = (email) =>
 const createUser = (email, password) => {
   const id = genId();
 
-  const user = {
-    password: hash(password),
-    email,
-    id,
-  };
+  return hash(password).then((password) => {
+    const user = {
+      password,
+      email,
+      id,
+    };
 
-  users.push(user);
-  return Promise.resolve(user);
+    users.push(user);
+    return user;
+  });
 };
 
 module.exports = {

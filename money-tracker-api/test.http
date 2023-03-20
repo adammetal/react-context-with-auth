@@ -1,1 +1,24 @@
 GET http://localhost:8000/ping
+
+###
+
+POST http://localhost:8000/api/auth/sign-up
+Content-Type: application/json
+
+{
+  "email": "adam.metal@codecool.com",
+  "password": "12345"
+}
+
+###
+POST http://localhost:8000/api/auth/sign-in
+Content-Type: application/json
+
+{
+  "email": "adam.metal@codecool.com",
+  "password": "12345"
+}
+
+###
+GET http://localhost:8000/api/auth/me
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IiQyYiQxMCRvSVFRY1p1SjBCamUxVXh0dUt4Vk91NENzeHE0SFpEUXRZOUE4RGtJU0xjTlpHelYuczNlYSIsImVtYWlsIjoiYWRhbS5tZXRhbEBjb2RlY29vbC5jb20iLCJpZCI6ImE3NjcwOTc3Yzc5YWNkNTU3OWEzNzAzNGFmYjc0MjFjZTcyMzAzMGU4Y2Y0YzRiMzM1NWIwMTU4M2Y2MmE0NTEiLCJpYXQiOjE2NzkzMzY1NDZ9.gyU06kf9IW532Zo-BuRTt6coXpltXVL-VOB7NJSWAgU
