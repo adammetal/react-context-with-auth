@@ -1,4 +1,4 @@
-import { useTheme } from "../context/ThemeProvider";
+import { useTheme } from "../../context/ThemeProvider";
 import "./Button.css";
 
 const Button = ({ type = "button", text, onClick }) => {
