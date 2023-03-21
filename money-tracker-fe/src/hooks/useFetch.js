@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-const useFetch = (url, instant = true) => {
+const useFetch = (url, instant = true, onDone = () => {}) => {
   const [loading, setLoading] = useState(instant);
   const [fetching, setFetching] = useState(false);
   const [data, setData] = useState(null);
@@ -14,6 +14,7 @@ const useFetch = (url, instant = true) => {
         .then((res) => res.json())
         .then((data) => {
           setData(data);
+          onDone(data);
         })
         .catch((err) => {
           console.log(err);
@@ -24,7 +25,7 @@ const useFetch = (url, instant = true) => {
           setLoading(false);
         });
     },
-    [url]
+    [url, onDone]
   );
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const useFetch = (url, instant = true) => {
     }
   }, [instant]);
 
-  return { loading, fetching, data, error, fetcher };
+  return { loading, fetching, data, error, fetcher, onDone };
 };
 
 export default useFetch;
